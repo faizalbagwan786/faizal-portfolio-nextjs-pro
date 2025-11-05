@@ -17,10 +17,10 @@ export async function POST(req: Request) {
 
   const { name, email, subject, message } = parsed.data;
 
-  // Save to DB
+  // Persist to SQLite (dev.db). On Vercel this is ephemeral, but it avoids build/runtime errors.
   await prisma.message.create({ data: { name, email, subject, body: message } });
 
-  // Try email (optional)
+  // Try sending an email if env vars are configured (safe no-op otherwise)
   await sendEmailNotification({ name, email, subject, message });
 
   return NextResponse.json({ ok: true });
