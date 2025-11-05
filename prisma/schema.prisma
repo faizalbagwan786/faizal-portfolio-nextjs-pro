@@ -3,20 +3,8 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "sqlite"
   url      = env("DATABASE_URL")
-}
-
-model Project {
-  id        Int      @id @default(autoincrement())
-  title     String
-  slug      String   @unique
-  summary   String
-  tags      String[]
-  link      String?
-  repo      String?
-  featured  Boolean  @default(false)
-  createdAt DateTime @default(now())
 }
 
 model Message {
