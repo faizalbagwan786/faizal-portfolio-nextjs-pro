@@ -1,0 +1,53 @@
+[
+  {
+    "title": "CarBazaar Platform",
+    "summary": "A full-stack car reselling platform using HTML, CSS, PHP, and MySQL (XAMPP). Admin-managed listings with clean UI.",
+    "tags": [
+      "web",
+      "php",
+      "mysql",
+      "xampp"
+    ],
+    "featured": true
+  },
+  {
+    "title": "CI/CD Practice Pipelines",
+    "summary": "Automated build/test/deploy flows using GitHub Actions and Jenkins for sample apps on Linux VMs.",
+    "tags": [
+      "ci/cd",
+      "github-actions",
+      "jenkins",
+      "linux"
+    ],
+    "featured": true
+  },
+  {
+    "title": "Linux Automation Scripts",
+    "summary": "Shell scripts to automate routine administration tasks and system checks on CentOS/Ubuntu.",
+    "tags": [
+      "linux",
+      "bash",
+      "automation"
+    ],
+    "featured": true
+  },
+  {
+    "title": "Web Hosting Practice",
+    "summary": "Configured Apache on CentOS and deployed static sites with virtual hosts and basic hardening.",
+    "tags": [
+      "apache",
+      "centos",
+      "linux"
+    ],
+    "featured": false
+  },
+  {
+    "title": "Motion Graphics Demo",
+    "summary": "Short tech-themed animations and intro video created in Adobe After Effects.",
+    "tags": [
+      "after-effects",
+      "motion-graphics"
+    ],
+    "featured": false
+  }
+]

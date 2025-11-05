@@ -1,0 +1,1 @@
+In the Postgres build, messages are stored in the database via Prisma.

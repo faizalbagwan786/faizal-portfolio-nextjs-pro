@@ -1,0 +1,27 @@
+import { NextResponse } from "next/server";
+import { z } from "zod";
+import prisma from "@/lib/db";
+import { sendEmailNotification } from "@/lib/email";
+
+const schema = z.object({
+  name: z.string().min(2),
+  email: z.string().email(),
+  subject: z.string().optional(),
+  message: z.string().min(10),
+});
+
+export async function POST(req: Request) {
+  const json = await req.json().catch(() => null);
+  const parsed = schema.safeParse(json);
+  if (!parsed.success) return NextResponse.json({ error: parsed.error.flatten() }, { status: 400 });
+
+  const { name, email, subject, message } = parsed.data;
+
+  // Save to DB
+  await prisma.message.create({ data: { name, email, subject, body: message } });
+
+  // Try email (optional)
+  await sendEmailNotification({ name, email, subject, message });
+
+  return NextResponse.json({ ok: true });
+}
