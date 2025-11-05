@@ -1,3 +1,8 @@
+// Tell Next/Vercel this is a dynamic Node API — don't try to pre-render
+export const dynamic = 'force-dynamic';
+export const runtime = 'nodejs';
+export const revalidate = 0;
+
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import prisma from "@/lib/db";
@@ -13,14 +18,16 @@ const schema = z.object({
 export async function POST(req: Request) {
   const json = await req.json().catch(() => null);
   const parsed = schema.safeParse(json);
-  if (!parsed.success) return NextResponse.json({ error: parsed.error.flatten() }, { status: 400 });
+  if (!parsed.success) {
+    return NextResponse.json({ error: parsed.error.flatten() }, { status: 400 });
+  }
 
   const { name, email, subject, message } = parsed.data;
 
-  // Persist to SQLite (dev.db). On Vercel this is ephemeral, but it avoids build/runtime errors.
+  // Persist (SQLite in dev / Vercel ephemeral)
   await prisma.message.create({ data: { name, email, subject, body: message } });
 
-  // Try sending an email if env vars are configured (safe no-op otherwise)
+  // Optional email (no-op unless env vars are set)
   await sendEmailNotification({ name, email, subject, message });
 
   return NextResponse.json({ ok: true });
